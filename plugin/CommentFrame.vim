@@ -29,17 +29,19 @@
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 "                          CommentFrame function                            {{{"
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-" Syntax: CommentFrame(comment char to start line,
-"            comment char to end the line,
+" Syntax: CommentFrame(top comment char to start line,
+"            top comment char to end the line,
 "            width of line,
-"            character to fill space in frame border (e.g. '*', '-', '=', ' '),
-"            character to fill space in title line,
+"            top character to fill space in frame border (e.g. '*', '-', '=', ' '),
+"            start character start title line
+"            end character end title line,
 "            number of spaces to leave around title string
 "            title string in center of line)
-function! s:CommentFrame(start_str, end_str, line_width, frame_fill, title_fill, spacing, titlestring)
+function! s:CommentFrame(top_start_str, top_end_str, line_width, top_frame_fill, start_title_str, end_title_str, title_fill, spacing, bottom_start_str, bottom_end_str, bottom_frame_fill, titlestring)
   " check and mod arg vars
   let l:title_fill = s:CheckNotEmpty(' ', a:title_fill)
-  let l:frame_fill = s:CheckNotEmpty(' ', a:frame_fill)
+  let l:top_frame_fill = s:CheckNotEmpty(' ', a:top_frame_fill)
+  let l:bottom_frame_fill = s:CheckNotEmpty(' ', a:bottom_frame_fill)
 
   " prepend/append spacing
   let l:titlestr = repeat(' ', a:spacing) . a:titlestring . repeat(' ', a:spacing)
@@ -52,7 +54,8 @@ function! s:CommentFrame(start_str, end_str, line_width, frame_fill, title_fill,
   let l:title_right = repeat(l:title_fill, l:title_right_length)
   
   " build border lines
-	let l:border=a:start_str . repeat(l:frame_fill, l:middle_length) . a:end_str
+	let l:top_border=a:top_start_str . repeat(l:top_frame_fill, l:middle_length) . a:top_end_str
+	let l:bottom_border=a:bottom_start_str . repeat(l:bottom_frame_fill, l:middle_length) . a:bottom_end_str
   " build title_line
 	let l:title_line=a:start_str . l:title_left . l:titlestr . l:title_right . a:end_str
 
